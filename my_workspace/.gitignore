@@ -1,0 +1,7 @@
+.west/
+build/
+zephyr/
+modules/
+bootloader/
+tools/
+deep/
