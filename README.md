@@ -17,6 +17,7 @@ including a file of the same relative path on the host system (`/app/custom.ld`)
 ## Repository Structure
 
 * `my_workspace/app/`: Workspace application registering a custom linker script.
+* `my_workspace/west.yml`: West manifest configured to place Zephyr in a nested folder.
 * `my_workspace/app/custom.ld`: Intended custom linker script.
 * `app/custom.ld`: Colliding file outside the workspace that is mistakenly picked up.
 * `my_workspace/deep/deep/deep/zephyr/`: Deeply-nested Zephyr RTOS repository.
@@ -24,10 +25,14 @@ including a file of the same relative path on the host system (`/app/custom.ld`)
 ## Reproduction Steps
 
 ```bash
-west init my_workspace
 cd my_workspace
+west init -l .
+west update
 west build -p -b native_sim app -DZEPHYR_TOOLCHAIN_VARIANT=host
 ```
+
+While this may feel a bit artificial, it is meant to simulate the conditions in a real project
+where this issue was discovered.
 
 The preprocessor's first include search check escapes the workspace and evaluates the host file. The build fails with the `#error` triggered from outside the workspace:
 

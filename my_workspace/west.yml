@@ -1,0 +1,10 @@
+manifest:
+  self:
+    path: .
+  projects:
+    - name: zephyr
+      url: https://github.com/zephyrproject-rtos/zephyr
+      revision: v4.4.1 
+      # Using a nested path to demonstrate issue
+      path: my_workspace/deep/deep/deep/zephyr 
+      import: true
